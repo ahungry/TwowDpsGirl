@@ -1,8 +1,8 @@
-# WoW DPS Girl
+# Twow DPS Girl
 
-A wow (retail 11.1.7+) mod for an active DPS counter with a fun image.
+A Turtle WoW  mod for an active DPS counter with a fun image.
 
-![AhuCT](https://github.com/ahungry/WowDpsGirl/blob/master/wow-dps-girl-demo.gif)
+![AhuCT](https://github.com/ahungry/TwowDpsGirl/blob/master/wow-dps-girl-demo.gif)
 
 # Copyright
 
