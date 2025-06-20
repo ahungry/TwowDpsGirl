@@ -5,9 +5,9 @@ local log = function(text, r, g, b, group, holdTime)
 end
 
 local TDGConfig = {
-   scale = 0.75,
-   xOffset = -400,
-   yOffset = 0,
+   scale = 0.5,
+   xOffset = -500,
+   yOffset = 20,
    inactivityTime = 6,
    path = {
       bubble = "Interface\\AddOns\\TwowDpsGirl\\Textures\\bubble",
