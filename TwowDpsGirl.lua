@@ -21,95 +21,95 @@ local TDGConfig = {
 
 -- TDG_SavedConfig = TDG_SavedConfig or {}
 
--- local mode = "dmg"
--- local SLEEPING = "ZZZzz"
+local mode = "dmg"
+local SLEEPING = "ZZZzz"
 local TDGFrame = CreateFrame("Frame", "TDGFrame", UIParent)
 -- local myGUID = nil
--- local stats = {
---    heal = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0},
---    dmg = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0}
--- }
+local stats = {
+   heal = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0},
+   dmg = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0}
+}
 
--- local function resetStats()
---    stats = {
---       heal = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0},
---       dmg = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0}
---    }
--- end
+local function resetStats()
+   stats = {
+      heal = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0},
+      dmg = {min = 0, max = 0, sum = 0, hits = 0, epoch_first = 0, epoch_last = 0}
+   }
+end
 
--- local function getInactivitySeconds()
---    return time() - stats[mode].epoch_last
--- end
+local function getInactivitySeconds()
+   return time() - stats[mode].epoch_last
+end
 
--- local function isInactive()
---    return getInactivitySeconds() > TDGConfig.inactivityTime
--- end
+local function isInactive()
+   return getInactivitySeconds() > TDGConfig.inactivityTime
+end
 
--- local function incStats(dmgType, amount)
---    local m = stats[dmgType]
---    -- start of combat
---    if m.epoch_first == 0 then
---       m.epoch_first = time()
---    end
---    m.epoch_last = time()
---    m.hits = m.hits + 1
---    m.sum = m.sum + amount
---    if amount > m.max then
---       m.max = amount
---    end
---    if amount > m.min or m.min == 0 then
---       m.min = amount
---    end
--- end
+local function incStats(dmgType, amount)
+   local m = stats[dmgType]
+   -- start of combat
+   if m.epoch_first == 0 then
+      m.epoch_first = time()
+   end
+   m.epoch_last = time()
+   m.hits = m.hits + 1
+   m.sum = m.sum + amount
+   if amount > m.max then
+      m.max = amount
+   end
+   if amount > m.min or m.min == 0 then
+      m.min = amount
+   end
+end
 
--- local function getDps()
---    local duration = max(stats[mode].epoch_last - stats[mode].epoch_first, 1)
---    local dps = stats[mode].sum / duration
+local function getDps()
+   local duration = max(stats[mode].epoch_last - stats[mode].epoch_first, 1)
+   local dps = stats[mode].sum / duration
 
---    -- if dps == 0 and isInactive() then
---    if isInactive() then
---       return SLEEPING
---    end
+   -- if dps == 0 and isInactive() then
+   if isInactive() then
+      return SLEEPING
+   end
 
---    if dps > 1000 then
---       return string.format("%.0f", dps/1000).."k"
---    end
+   if dps > 1000 then
+      return string.format("%.0f", dps/1000).."k"
+   end
 
---    return string.format("%.0f", dps)
--- end
+   return string.format("%.0f", dps)
+end
 
--- local currentImage = 1
+local currentImage = 1
 
--- local function getTexture()
---    local c = TDGConfig
+local function getTexture()
+   local c = TDGConfig
 
---    if getDps() == SLEEPING then
---       return c.path.girlz
---    end
+   if getDps() == SLEEPING then
+      return c.path.girlz
+   end
 
---    if math.random(0, 100) < 5 then
---       return c.path.girlb
---    end
+   if math.random(0, 100) < 5 then
+      return c.path.girlb
+   end
 
---    if currentImage == 1 then
---       currentImage = 2
---       return c.path.girl2
---    else
---       currentImage = 1
---       return c.path.girl1
---    end
--- end
+   if currentImage == 1 then
+      currentImage = 2
+      return c.path.girl2
+   else
+      currentImage = 1
+      return c.path.girl1
+   end
+end
 
--- local function getColor()
---    if getDps() == SLEEPING then
---       return {0, 0, 0}
---    end
---    if mode == "dmg" then
---       return {1, 0, 0}
---    else
---       return {0, 1, 0}
---    end
--- end
+local function getColor()
+   if getDps() == SLEEPING then
+      return {0, 0, 0}
+   end
+   if mode == "dmg" then
+      return {1, 0, 0}
+   else
+      return {0, 1, 0}
+   end
+end
 
 function showGirl()
    log("Hello nurse!")
@@ -146,7 +146,7 @@ function showGirl()
    local f = CreateFrame("Frame", nil, UIParent)
    f:SetWidth(50)
    f:SetHeight(30)
-   f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-190 + c.xOffset) * c.scale, (205 + c.yOffset) * c.scale)
+   f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-185 + c.xOffset) * c.scale, (205 + c.yOffset) * c.scale)
 
    local fs = f:CreateFontString(nil, "OVERLAY")
    fs:SetFont("Fonts\\ARIALN.TTF", math.floor(c.scale * 32), nil) -- OUTLINE third arg if wanted
@@ -155,34 +155,46 @@ function showGirl()
    fs:SetPoint("CENTER", f, "CENTER")
    -- fs:SetRotation(math.rad(18))
 
-   -- local function updateImage()
-   --    local texture = getTexture()
-   --    local dps = getDps()
+   local function updateImage()
+      local texture = getTexture()
+      local dps = getDps()
 
-   --    if (c.needsUpdate) then
-   --       myImageFrame2:SetSize(c.scale * 150, c.scale * 130)
-   --       myImageFrame1:SetSize(c.scale * 110, c.scale * 120)
-   --       myImageFrame2:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-30 + c.xOffset) * c.scale, (65 + c.yOffset) * c.scale) -- Example positioning
-   --       myImageFrame1:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", c.scale * c.xOffset, c.scale * c.yOffset) -- Example positioning
-   --       f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-80 + c.xOffset) * c.scale, (120 + c.yOffset) * c.scale)
-   --       c.needsUpdate = false
-   --    end
+      if (c.needsUpdate) then
+         myImageFrame2:SetWidth(c.scale * 256)
+         myImageFrame2:SetHeight(c.scale * 256)
+         myImageFrame1:SetWidth(c.scale * 256)
+         myImageFrame1:SetHeight(c.scale * 256)
+         myImageFrame2:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-90 + c.xOffset) * c.scale, (90 + c.yOffset) * c.scale)
+         myImageFrame1:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", c.scale * c.xOffset, c.scale * c.yOffset)
+         f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-185 + c.xOffset) * c.scale, (205 + c.yOffset) * c.scale)
+         c.needsUpdate = false
+      end
 
-   --    myImageFrame2:Hide()
-   --    myImageFrame1:Hide()
-   --    myImageTexture1:SetTexture(texture)
-   --    myImageFrame2:Show()
-   --    myImageFrame1:Show()
-   --    fs:SetTextColor(unpack(getColor()))
-   --    fs:SetText(dps)
+      myImageFrame2:Hide()
+      myImageFrame1:Hide()
+      myImageTexture1:SetTexture(texture)
+      myImageFrame2:Show()
+      myImageFrame1:Show()
+      -- fs:SetTextColor(unpack(getColor()))
+      fs:SetText(dps)
 
-   --    if isInactive() then
-   --       resetStats()
-   --    end
-   -- end
+      if isInactive() then
+         log("RESET STATS")
+         resetStats()
+      end
+   end
 
    myImageFrame1:Show()
    -- local timer = C_Timer.NewTicker(0.1, updateImage) -- true makes it repeat
+   myImageFrame1.UpdateState = function(self)
+      updateImage()
+   end
+   myImageFrame1:SetScript(
+      "OnUpdate",
+      function()
+         if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + 1 end
+         this:UpdateState()
+   end)
 end
 
 -- local function loadConfig ()
@@ -199,10 +211,12 @@ end
 --    TDG_SavedConfig.scale = TDGConfig.scale
 -- end
 
-local function combatLogging()
-   --print("combatLogging cb")
-   --print(CombatLogGetCurrentEventInfo())
-end
+-- local function combatLogging()
+--    log(getDps())
+--    log(getTexture())
+--    --print("combatLogging cb")
+--    --print(CombatLogGetCurrentEventInfo())
+-- end
 
 function TwowDpsGirl_OnLoad()
    this:RegisterEvent("UNIT_NAME_UPDATE");
@@ -217,7 +231,8 @@ end
 
 local function parseDmg(s)
    local _, _, amt = string.find(s, ".* (%d+)")
-   log(amt)
+   -- log(amt)
+   incStats("dmg", tonumber(amt))
 end
 
 function TwowDpsGirl_OnEvent()
@@ -237,28 +252,28 @@ function TwowDpsGirl_OnEvent()
    if (event == "CHAT_MSG_SPELL_SELF_DAMAGE") then
       -- Ability dmg
       -- "Your Bloodthirst hit X for 123."
-      log(arg1)
+      -- log(arg1)
       parseDmg(arg1)
    end
    if (event == "CHAT_MSG_COMBAT_SELF_HITS") then
       -- White dmg
       -- "You hit X for 123."
       -- "You hit X for 123 (glancing)."
-      log(arg1)
+      -- log(arg1)
       parseDmg(arg1)
    end
 end
 
-TDGFrame.UpdateState = function(self)
-   combatLogging()
-end
+-- TDGFrame.UpdateState = function(self)
+--    combatLogging()
+-- end
 
-TDGFrame:SetScript(
-   "OnUpdate",
-   function()
-      if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + 1 end
-      this:UpdateState()
-end)
+-- TDGFrame:SetScript(
+--    "OnUpdate",
+--    function()
+--       if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + 1 end
+--       this:UpdateState()
+-- end)
 
 -- TDGFrame:SetScript(
 --    "OnEvent",
