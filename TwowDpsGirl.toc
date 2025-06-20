@@ -1,8 +1,7 @@
-## Interface: 100105
+## Interface: 11200
 ## Title: TwowDpsGirl
 ## Author: Matthew Carter
 ## Version: 0.0.1
 ## Notes: Show current dps with a friend.
-## SavedVariables: WDG_SavedConfig
-
-TwowDpsGirl.lua
+## SavedVariables: TDG_SavedConfig
+TwowDpsGirl.xml

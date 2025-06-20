@@ -5,9 +5,9 @@ local log = function(text, r, g, b, group, holdTime)
 end
 
 local TDGConfig = {
-   scale = 0.5,
-   xOffset = -500,
-   yOffset = 20,
+   scale = 0.6,
+   xOffset = -600,
+   yOffset = -10,
    inactivityTime = 6,
    path = {
       bubble = "Interface\\AddOns\\TwowDpsGirl\\Textures\\bubble",
@@ -146,7 +146,7 @@ function showGirl()
    local f = CreateFrame("Frame", nil, UIParent)
    f:SetWidth(50)
    f:SetHeight(30)
-   f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-190 + c.xOffset) * c.scale, (210 + c.yOffset) * c.scale)
+   f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-190 + c.xOffset) * c.scale, (205 + c.yOffset) * c.scale)
 
    local fs = f:CreateFontString(nil, "OVERLAY")
    fs:SetFont("Fonts\\ARIALN.TTF", math.floor(c.scale * 32), nil) -- OUTLINE third arg if wanted
@@ -200,73 +200,93 @@ end
 -- end
 
 -- -- Events
--- TDGFrame:RegisterEvent("ADDON_LOADED")
--- TDGFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
--- TDGFrame:RegisterEvent("PLAYER_LOGOUT")
--- TDGFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+TDGFrame:RegisterEvent("ADDON_LOADED")
+TDGFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+TDGFrame:RegisterEvent("PLAYER_LOGOUT")
+TDGFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
 function TwowDpsGirl_OnLoad()
-   showGirl()
+   this:RegisterEvent("UNIT_NAME_UPDATE");
+   this:RegisterEvent("PLAYER_ENTERING_WORLD");
+end
+
+function TwowDpsGirl_OnEvent()
+   if (event == "UNIT_NAME_UPDATE" and arg1 == "player") then
+      log("DPS GIRL UNU")
+      --print(UnitName("player"))
+   end
+   if (event == "PLAYER_ENTERING_WORLD") then
+      showGirl()
+   end
 end
 
 -- TDGFrame:SetScript(
 --    "OnEvent",
---    function(_, event, ...)
+--    function(_, event, addonName, x, y, z)
+--       print("TwowDpsGirl stuff here!")
+--       print(_)
+--       print(x)
+--       print(y)
+--       print(z)
+--       print(addonName)
+--       print(event)
 --       if event == "ADDON_LOADED" then
---          local addonName = ...
+--          -- local addonName = ...
 --          if addonName == "TwowDpsGirl" then
---             mode = TDG_SavedConfig.mode or "dmg"
+--             -- mode = TDG_SavedConfig.mode or "dmg"
+--             log("HERE WE GO - load config here!")
 --             -- TDG_SavedConfig.xOffset = TDGConfig.xOffset
 --             -- TDG_SavedConfig.yOffset = TDGConfig.yOffset
 --             -- TDG_SavedConfig.scale = TDGConfig.scale
 --          end
 
 --       elseif event == "PLAYER_ENTERING_WORLD" then
---          myGUID = UnitGUID("player")
---          resetStats()
---          loadConfig()
+--          -- myGUID = UnitGUID("player")
+--          -- resetStats()
+--          -- loadConfig()
+--          log("PEW PEW PEW")
 --          showGirl()
 
---       elseif event == "PLAYER_LOGOUT" then
---          saveConfig()
+--       -- elseif event == "PLAYER_LOGOUT" then
+--       --    saveConfig()
 
---       elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
---          local timestamp,
---             subEvent,
---             hideCaster,
---             sourceGUID,
---             sourceName,
---             sourceFlags,
---             sourceRaidFlags,
---             destGUID,
---             destName,
---             destFlags,
---             destRaidFlags,
---             spellID,
---             spellName,
---             spellSchool,
---             amount,
---             overkill,
---             school,
---             resisted,
---             blocked,
---             absorbed,
---             critical,
---             glancing,
---             crushing,
---             isOffHand = CombatLogGetCurrentEventInfo()
+--       -- elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
+--       --    local timestamp,
+--       --       subEvent,
+--       --       hideCaster,
+--       --       sourceGUID,
+--       --       sourceName,
+--       --       sourceFlags,
+--       --       sourceRaidFlags,
+--       --       destGUID,
+--       --       destName,
+--       --       destFlags,
+--       --       destRaidFlags,
+--       --       spellID,
+--       --       spellName,
+--       --       spellSchool,
+--       --       amount,
+--       --       overkill,
+--       --       school,
+--       --       resisted,
+--       --       blocked,
+--       --       absorbed,
+--       --       critical,
+--       --       glancing,
+--       --       crushing,
+--       --       isOffHand = CombatLogGetCurrentEventInfo()
 
---          if sourceGUID ~= myGUID then
---             return
---          end
+--       --    if sourceGUID ~= myGUID then
+--       --       return
+--       --    end
 
---          if (subEvent == "SPELL_HEAL" or subEvent == "SPELL_PERIODIC_HEAL") and amount and amount > 0 then
---             incStats("heal", amount)
---          elseif tonumber(amount) and amount > 0 then
---             incStats("dmg", amount)
---          elseif subEvent == "SWING_DAMAGE" and amount == nil and spellID and spellID > 0 then
---             incStats("dmg", spellID)
---          end
+--       --    if (subEvent == "SPELL_HEAL" or subEvent == "SPELL_PERIODIC_HEAL") and amount and amount > 0 then
+--       --       incStats("heal", amount)
+--       --    elseif tonumber(amount) and amount > 0 then
+--       --       incStats("dmg", amount)
+--       --    elseif subEvent == "SWING_DAMAGE" and amount == nil and spellID and spellID > 0 then
+--       --       incStats("dmg", spellID)
+--       --    end
 --       end
 --    end
 -- )
