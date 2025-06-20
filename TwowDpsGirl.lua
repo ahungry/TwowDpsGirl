@@ -199,15 +199,25 @@ end
 --    TDG_SavedConfig.scale = TDGConfig.scale
 -- end
 
--- -- Events
-TDGFrame:RegisterEvent("ADDON_LOADED")
-TDGFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-TDGFrame:RegisterEvent("PLAYER_LOGOUT")
-TDGFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+local function combatLogging()
+   --print("combatLogging cb")
+   --print(CombatLogGetCurrentEventInfo())
+end
 
 function TwowDpsGirl_OnLoad()
    this:RegisterEvent("UNIT_NAME_UPDATE");
    this:RegisterEvent("PLAYER_ENTERING_WORLD");
+   this:RegisterEvent("PLAYER_REGEN_DISABLED")
+   this:RegisterEvent("PLAYER_REGEN_ENABLED")
+   this:RegisterEvent("CHAT_MSG_SPELL_SELF_DAMAGE");
+   this:RegisterEvent("CHAT_MSG_COMBAT_SELF_HITS");
+   -- this:RegisterEvent("CHAT_MSG_SPELL_CRIT_SELF_DAMAGE");
+   -- this:RegisterEvent("CHAT_MSG_SPELL_DAMAGE_OTHER");
+end
+
+local function parseDmg(s)
+   local _, _, amt = string.find(s, ".* (%d+)")
+   log(amt)
 end
 
 function TwowDpsGirl_OnEvent()
@@ -218,7 +228,37 @@ function TwowDpsGirl_OnEvent()
    if (event == "PLAYER_ENTERING_WORLD") then
       showGirl()
    end
+   if (event == "PLAYER_REGEN_ENABLED") then
+      log("Out of combat")
+   end
+   if (event == "PLAYER_REGEN_DISABLED") then
+      log("In combat")
+   end
+   if (event == "CHAT_MSG_SPELL_SELF_DAMAGE") then
+      -- Ability dmg
+      -- "Your Bloodthirst hit X for 123."
+      log(arg1)
+      parseDmg(arg1)
+   end
+   if (event == "CHAT_MSG_COMBAT_SELF_HITS") then
+      -- White dmg
+      -- "You hit X for 123."
+      -- "You hit X for 123 (glancing)."
+      log(arg1)
+      parseDmg(arg1)
+   end
 end
+
+TDGFrame.UpdateState = function(self)
+   combatLogging()
+end
+
+TDGFrame:SetScript(
+   "OnUpdate",
+   function()
+      if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + 1 end
+      this:UpdateState()
+end)
 
 -- TDGFrame:SetScript(
 --    "OnEvent",
