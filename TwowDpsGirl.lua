@@ -4,11 +4,11 @@ local WDGConfig = {
    yOffset = 0,
    inactivityTime = 6,
    path = {
-      bubble = "Interface\\AddOns\\WowDpsGirl\\bubble.tga",
-      girl1 = "Interface\\AddOns\\WowDpsGirl\\girl1.tga",
-      girl2 = "Interface\\AddOns\\WowDpsGirl\\girl2.tga",
-      girlz = "Interface\\AddOns\\WowDpsGirl\\girlz.tga",
-      girlb = "Interface\\AddOns\\WowDpsGirl\\girlb.tga",
+      bubble = "Interface\\AddOns\\TwowDpsGirl\\bubble.tga",
+      girl1 = "Interface\\AddOns\\TwowDpsGirl\\girl1.tga",
+      girl2 = "Interface\\AddOns\\TwowDpsGirl\\girl2.tga",
+      girlz = "Interface\\AddOns\\TwowDpsGirl\\girlz.tga",
+      girlb = "Interface\\AddOns\\TwowDpsGirl\\girlb.tga",
    },
    needsUpdate = false,
 }
@@ -197,7 +197,7 @@ WDGFrame:SetScript(
    function(_, event, ...)
       if event == "ADDON_LOADED" then
          local addonName = ...
-         if addonName == "WowDpsGirl" then
+         if addonName == "TwowDpsGirl" then
             mode = WDG_SavedConfig.mode or "dmg"
             -- WDG_SavedConfig.xOffset = WDGConfig.xOffset
             -- WDG_SavedConfig.yOffset = WDGConfig.yOffset
