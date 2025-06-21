@@ -349,80 +349,80 @@ end
 
 local commands = setmetatable({
    -- {
-   --    ["ax"] = function(arg)
-   --       print("Adjusting x")
-   --       TDGConfig.xOffset = TDGConfig.xOffset + arg
-   --       TDGConfig.needsUpdate = true
-   --       saveConfig()
-   --    end,
-
-   --    ["ay"] = function(arg)
-   --       print("Adjusting y")
-   --       TDGConfig.yOffset = TDGConfig.yOffset + arg
-   --       TDGConfig.needsUpdate = true
-   --       saveConfig()
-   --    end,
-
-   --    ["x"] = function(arg)
-   --       print("Setting x")
-   --       TDGConfig.xOffset = arg
-   --       TDGConfig.needsUpdate = true
-   --       saveConfig()
-   --    end,
-
-   --    ["y"] = function(arg)
-   --       print("Setting y")
-   --       TDGConfig.yOffset = arg
-   --       TDGConfig.needsUpdate = true
-   --       saveConfig()
-   --    end,
-
-   --    ["s"] = function(arg)
-   --       print("Setting scale")
-   --       TDGConfig.scale = arg
-   --       TDGConfig.needsUpdate = true
-   --       saveConfig()
-   --    end,
-
-   --    ["p"] = function(arg)
-   --       print("Printing settings:")
-   --       print("Scale: "..TDGConfig.scale)
-   --       print("xOffset: "..TDGConfig.xOffset)
-   --       print("yOffset: "..TDGConfig.yOffset)
-   --    end,
-
-   --    ["r"] = function(arg)
-   --       print("Resetting customizations")
-   --       TDGConfig.scale = 1.5
-   --       TDGConfig.xOffset = -200
-   --       TDGConfig.yOffset = 0
-   --       TDGConfig.needsUpdate = true
-   --       saveConfig()
-   --    end,
-
-   --    ["d"] = function(args)
-   --       print("Enabling damage mode")
-   --       mode = "dmg"
-   --    end,
-
-      ["h"] = function(args)
-         print("Enabling heal mode")
-         showGirl()
-         -- mode = "heal"
+      ["ax"] = function(arg)
+         print("Adjusting x")
+         TDGConfig.xOffset = TDGConfig.xOffset + arg
+         TDGConfig.needsUpdate = true
+         saveConfig()
       end,
+
+      ["ay"] = function(arg)
+         print("Adjusting y")
+         TDGConfig.yOffset = TDGConfig.yOffset + arg
+         TDGConfig.needsUpdate = true
+         saveConfig()
+      end,
+
+      ["x"] = function(arg)
+         print("Setting x")
+         TDGConfig.xOffset = arg
+         TDGConfig.needsUpdate = true
+         saveConfig()
+      end,
+
+      ["y"] = function(arg)
+         print("Setting y")
+         TDGConfig.yOffset = arg
+         TDGConfig.needsUpdate = true
+         saveConfig()
+      end,
+
+      ["s"] = function(arg)
+         print("Setting scale")
+         TDGConfig.scale = arg
+         TDGConfig.needsUpdate = true
+         saveConfig()
+      end,
+
+      ["p"] = function(arg)
+         print("Printing settings:")
+         print("Scale: "..TDGConfig.scale)
+         print("xOffset: "..TDGConfig.xOffset)
+         print("yOffset: "..TDGConfig.yOffset)
+      end,
+
+      ["r"] = function(arg)
+         print("Resetting customizations")
+         TDGConfig.scale = 1.5
+         TDGConfig.xOffset = -200
+         TDGConfig.yOffset = 0
+         TDGConfig.needsUpdate = true
+         saveConfig()
+      end,
+
+      -- ["d"] = function(args)
+      --    print("Enabling damage mode")
+      --    mode = "dmg"
+      -- end,
+
+      -- ["h"] = function(args)
+      --    print("Enabling heal mode")
+      --    showGirl()
+      --    -- mode = "heal"
+      -- end,
    }, {
       __index = function()
          return function()
-            local dmgChosen = " |cff00ff33(active)."
-            local healChosen = "."
+            -- local dmgChosen = " |cff00ff33(active)."
+            -- local healChosen = "."
             -- if mode == "heal" then
             --    dmgChosen = "."
             --    healChosen = " |cff00ff33(active)."
             -- end
             log("|cffff33cc[DpsGirl]|cffff9999 - Small DPS calculator")
             log("Commands:")
-            log("  |cffff66cc/dg d|cffffffff - Enable damage mode"..dmgChosen)
-            log("  |cffff66cc/dg h|cffffffff - Enable heal mode"..healChosen)
+            -- log("  |cffff66cc/dg d|cffffffff - Enable damage mode"..dmgChosen)
+            -- log("  |cffff66cc/dg h|cffffffff - Enable heal mode"..healChosen)
             log("  |cffff66cc/dg x|cffffffff - Set X")
             log("  |cffff66cc/dg y|cffffffff - Set Y")
             log("  |cffff66cc/dg ax|cffffffff - Adjust X")
