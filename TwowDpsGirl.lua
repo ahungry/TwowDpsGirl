@@ -19,7 +19,7 @@ local TDGConfig = {
    needsUpdate = false,
 }
 
--- TDG_SavedConfig = TDG_SavedConfig or {}
+TDG_SavedConfig = TDG_SavedConfig or {}
 
 local mode = "dmg"
 local SLEEPING = " ZZZzz"
@@ -199,19 +199,19 @@ function showGirl()
    end)
 end
 
--- local function loadConfig ()
---    mode = TDG_SavedConfig.mode or "dmg"
---    TDGConfig.xOffset = TDG_SavedConfig.xOffset or -200
---    TDGConfig.yOffset = TDG_SavedConfig.yOffset or 0
---    TDGConfig.scale = TDG_SavedConfig.scale or 1.5
--- end
+local function loadConfig ()
+   mode = TDG_SavedConfig.mode or "dmg"
+   TDGConfig.xOffset = TDG_SavedConfig.xOffset or -600
+   TDGConfig.yOffset = TDG_SavedConfig.yOffset or -10
+   TDGConfig.scale = TDG_SavedConfig.scale or 0.6
+end
 
--- local function saveConfig ()
---    TDG_SavedConfig.mode = mode
---    TDG_SavedConfig.xOffset = TDGConfig.xOffset
---    TDG_SavedConfig.yOffset = TDGConfig.yOffset
---    TDG_SavedConfig.scale = TDGConfig.scale
--- end
+local function saveConfig ()
+   TDG_SavedConfig.mode = mode
+   TDG_SavedConfig.xOffset = TDGConfig.xOffset
+   TDG_SavedConfig.yOffset = TDGConfig.yOffset
+   TDG_SavedConfig.scale = TDGConfig.scale
+end
 
 -- local function combatLogging()
 --    log(getDps())
@@ -354,6 +354,7 @@ local commands = setmetatable({
          TDGConfig.xOffset = TDGConfig.xOffset + arg
          TDGConfig.needsUpdate = true
          saveConfig()
+         print("X adjusted")
       end,
 
       ["ay"] = function(arg)
@@ -361,6 +362,7 @@ local commands = setmetatable({
          TDGConfig.yOffset = TDGConfig.yOffset + arg
          TDGConfig.needsUpdate = true
          saveConfig()
+         print("Y adjusted")
       end,
 
       ["x"] = function(arg)
@@ -368,6 +370,7 @@ local commands = setmetatable({
          TDGConfig.xOffset = arg
          TDGConfig.needsUpdate = true
          saveConfig()
+         print("X set")
       end,
 
       ["y"] = function(arg)
@@ -375,6 +378,7 @@ local commands = setmetatable({
          TDGConfig.yOffset = arg
          TDGConfig.needsUpdate = true
          saveConfig()
+         print("Y set")
       end,
 
       ["s"] = function(arg)
@@ -382,6 +386,7 @@ local commands = setmetatable({
          TDGConfig.scale = arg
          TDGConfig.needsUpdate = true
          saveConfig()
+         print("Scaled")
       end,
 
       ["p"] = function(arg)
@@ -393,11 +398,12 @@ local commands = setmetatable({
 
       ["r"] = function(arg)
          print("Resetting customizations")
-         TDGConfig.scale = 1.5
-         TDGConfig.xOffset = -200
-         TDGConfig.yOffset = 0
+         TDGConfig.scale = 0.6
+         TDGConfig.xOffset = -600
+         TDGConfig.yOffset = -10
          TDGConfig.needsUpdate = true
          saveConfig()
+         print("Reset")
       end,
 
       -- ["d"] = function(args)
