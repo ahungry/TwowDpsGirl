@@ -112,7 +112,6 @@ local function getColor()
 end
 
 function showGirl()
-   log("Hello nurse!")
    local c = TDGConfig
 
    -- bubble
