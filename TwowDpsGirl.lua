@@ -239,7 +239,6 @@ end
 
 function TwowDpsGirl_OnEvent()
    if (event == "UNIT_NAME_UPDATE" and arg1 == "player") then
-      log("DPS GIRL UNU")
       --print(UnitName("player"))
    end
    if (event == "PLAYER_ENTERING_WORLD") then
