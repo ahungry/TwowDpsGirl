@@ -46,6 +46,10 @@ local function isInactive()
 end
 
 local function incStats(dmgType, amount)
+   if not amount then
+      return
+   end
+
    local m = stats[dmgType]
    -- start of combat
    if m.epoch_first == 0 then
