@@ -22,7 +22,7 @@ local TDGConfig = {
 -- TDG_SavedConfig = TDG_SavedConfig or {}
 
 local mode = "dmg"
-local SLEEPING = "ZZZzz"
+local SLEEPING = " ZZZzz"
 local TDGFrame = CreateFrame("Frame", "TDGFrame", UIParent)
 -- local myGUID = nil
 local stats = {
@@ -119,7 +119,7 @@ function showGirl()
    local myImageFrame2 = CreateFrame("Frame", nil, UIParent)
    myImageFrame2:SetWidth(c.scale * 256)
    myImageFrame2:SetHeight(c.scale * 256)
-   myImageFrame2:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-90 + c.xOffset) * c.scale, (90 + c.yOffset) * c.scale)
+   myImageFrame2:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-80 + c.xOffset) * c.scale, (120 + c.yOffset) * c.scale)
 
    local myImageTexture2 = myImageFrame2:CreateTexture(nil, "ARTWORK")
    myImageTexture2:SetAllPoints(myImageFrame2)
@@ -146,7 +146,7 @@ function showGirl()
    local f = CreateFrame("Frame", nil, UIParent)
    f:SetWidth(50)
    f:SetHeight(30)
-   f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-185 + c.xOffset) * c.scale, (205 + c.yOffset) * c.scale)
+   f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-175 + c.xOffset) * c.scale, (225 + c.yOffset) * c.scale)
 
    local fs = f:CreateFontString(nil, "OVERLAY")
    fs:SetFont("Fonts\\ARIALN.TTF", math.floor(c.scale * 32), nil) -- OUTLINE third arg if wanted
@@ -164,9 +164,9 @@ function showGirl()
          myImageFrame2:SetHeight(c.scale * 256)
          myImageFrame1:SetWidth(c.scale * 256)
          myImageFrame1:SetHeight(c.scale * 256)
-         myImageFrame2:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-90 + c.xOffset) * c.scale, (90 + c.yOffset) * c.scale)
+         myImageFrame2:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-80 + c.xOffset) * c.scale, (120 + c.yOffset) * c.scale)
          myImageFrame1:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", c.scale * c.xOffset, c.scale * c.yOffset)
-         f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-185 + c.xOffset) * c.scale, (205 + c.yOffset) * c.scale)
+         f:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", (-175 + c.xOffset) * c.scale, (225 + c.yOffset) * c.scale)
          c.needsUpdate = false
       end
 
@@ -179,7 +179,6 @@ function showGirl()
       fs:SetText(dps)
 
       if isInactive() then
-         log("RESET STATS")
          resetStats()
       end
    end
@@ -192,7 +191,7 @@ function showGirl()
    myImageFrame1:SetScript(
       "OnUpdate",
       function()
-         if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + 1 end
+         if ( this.tick or 0.1) > GetTime() then return else this.tick = GetTime() + 0.1 end
          this:UpdateState()
    end)
 end
@@ -244,10 +243,10 @@ function TwowDpsGirl_OnEvent()
       showGirl()
    end
    if (event == "PLAYER_REGEN_ENABLED") then
-      log("Out of combat")
+      -- Could use inactivity here if we wanted
    end
    if (event == "PLAYER_REGEN_DISABLED") then
-      log("In combat")
+      -- Could use activity here if we wanted
    end
    if (event == "CHAT_MSG_SPELL_SELF_DAMAGE") then
       -- Ability dmg
